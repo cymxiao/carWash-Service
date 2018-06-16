@@ -1,23 +1,17 @@
 'use strict';
 var mongoose = require('mongoose');
-// var moment = require('moment');
-// var moment = require('moment-timezone');
-// var zone = 'Asia/Shanghai';
-// var dtNow = moment(Date.now()).tz(zone).format();
-//moment().tz("Asia/Shanghai").format();
-//moment().tz()
+  
 var Schema = mongoose.Schema;
 
 
 
-var leisureParkSchema = new Schema({
-  startTime: {
+var orderSchema = new Schema({
+  expectFinishTime: {
     type: Date,
-    required: 'Kindly enter the startTime'
+    required: 'Kindly enter the expectFinishTime'
   },
-  endTime: {
-    type: Date,
-    required: 'Kindly enter the endTime'
+  finishTime: {
+    type: Date  
   },
   status: {
     type: [{
@@ -35,7 +29,7 @@ var leisureParkSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'users'
   },
-  shared_UserID: {
+  owner_UserID: {
     type: Schema.Types.ObjectId,
     ref: 'users'
   },
@@ -43,19 +37,16 @@ var leisureParkSchema = new Schema({
   community_ID: {
     type: Schema.Types.ObjectId,
     ref: 'communities'
-  },
-  priceUnit: {
-    type: [{
-      type: String,
-      enum: ['小时', '天', '月']
-    }],
-    default: ['天']
-  },
-  price: {
+  }, 
+  basicPrice: {
     type: Number,
-    required: 'Kindly enter the price'
+    required: 'Kindly enter the basicPrice'
+  },
+  increasedPrice: {
+    type: Number,
+    required: 'Kindly enter the increasedPrice'
   },
   timestamp: { type: Date, default: Date.now },
 });
 
-module.exports = mongoose.model('leisurePark', leisureParkSchema);
+module.exports = mongoose.model('order', orderSchema);

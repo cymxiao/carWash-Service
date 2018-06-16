@@ -10,7 +10,7 @@ var express = require('express'),
   City = require('./api/models/cityModel'),
   Community = require('./api/models/communityModel'),
   Carport = require('./api/models/carportModel'),
-  LeisurePark = require('./api/models/leisureParkModel'),
+  Order = require('./api/models/orderModel'),
   Role = require('./api/models/roleModel'),
   Account = require('./api/models/accountModel'),
   bodyParser = require('body-parser');
@@ -46,7 +46,7 @@ var country = require('./api/routes/countryRoutes');
 var city = require('./api/routes/cityRoutes');
 var community = require('./api/routes/communityRoutes');
 var carport = require('./api/routes/carportRoutes');
-var leisurePark = require('./api/routes/leisureParkRoutes');
+var order = require('./api/routes/orderRoutes');
 var role = require('./api/routes/roleRoutes');
 var account = require('./api/routes/accountRoutes'); 
 var sms = require('./api/routes/smsRoutes');  
@@ -57,7 +57,7 @@ country(app);
 city(app);
 community(app);
 carport(app);
-leisurePark(app);
+order(app);
 role(app);
 account(app);
 sms(app);
