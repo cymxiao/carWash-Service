@@ -47,9 +47,9 @@ var leisureParkSchema = new Schema({
   priceUnit: {
     type: [{
       type: String,
-      enum: ['hour', 'day', 'month']
+      enum: ['小时', '天', '月']
     }],
-    default: ['day']
+    default: ['天']
   },
   price: {
     type: Number,

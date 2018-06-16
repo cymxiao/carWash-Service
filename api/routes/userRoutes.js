@@ -1,13 +1,12 @@
 'use strict';
 module.exports = function(app) {
   var user = require('../controllers/userController');
-  //var bodyParser = require('body-parser')
-  // create application/json parser
-  //var jsonParser = bodyParser.json();
-
-  // todoList Routes
-  app.route('/users')
-    .get(user.list_all_users)
+ 
+ 
+  app.route('/pmcusers/:status')
+    .get(user.get_pmc_users_by_status);
+ 
+  app.route('/users') 
     .post(user.create_a_user);//, jsonParser);
 
   app.route('/userlogin')

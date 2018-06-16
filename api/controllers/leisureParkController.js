@@ -78,18 +78,23 @@ exports.list_leisureParks_for_Applier = function (req, res) {
   //}).populate('carport_ID');
 };
 
+
 exports.list_leisureParks_by_Community = function (req, res) {
-  //if -1, it would list all the share leisurepark of the community
+  //if 000000000000000000000000, it would list all the share leisurepark of the community
+  //Amin:Tocheck It used for PMC dashboard, so applied_UserID should be defined or emtpy. it's not null or undefined.
   if (req.params.ownerId === '000000000000000000000000') {
     LeisurePark.find({
       community_ID: req.params.comId, 
       // status: { "$ne": 'invalid' },
       endTime: { "$gte": new Date() }
-    }, null, { sort: { timestamp: -1 } }, function (err, leisurePark) {
+      //order by date ascending
+    }, null, { sort: { timestamp: 1 } }, function (err, leisurePark) {
       if (err)
         res.send(err);
       res.json(leisurePark);
-    }).populate([{ path: 'carport_ID', model: Carport }]).populate([{ path: 'shared_UserID', model: User }]);
+    }).populate([{ path: 'carport_ID', model: Carport }])
+      .populate([{ path: 'shared_UserID', model: User }])
+      .populate([{ path: 'applied_UserID', model: User }]);
   } else { 
     LeisurePark.find({
       community_ID: req.params.comId, status: 'active',
@@ -105,8 +110,8 @@ exports.list_leisureParks_by_Community = function (req, res) {
 
 
 exports.groupCountbyCommunity = function (req, res) {
-  var rules = [{ 'priceUnit': 'day' } ,{status : 'active'}]; //, {price: {$gte: 200}}
-  //var unMatchRules = [{ 'priceUnit': 'day' }];
+  //Amin:tocheck  status is a array column, it seems works in aggregate
+  var rules = [{ priceUnit: '天' } ,{status : 'active'}]; //, {price: {$gte: 200}} 
   LeisurePark.aggregate([
     {
       //Amin !IMP:  startTime : { $lte : new Date(Date.now())} , I should use new Date(...) here, otherwise it would return empty query result. 

@@ -6,12 +6,12 @@ var mongoose = require('mongoose'),
   Community = mongoose.model('community', com.schema),
   User = mongoose.model('users');
 
-exports.list_all_users = function (req, res) {
-  User.find({},null, {sort: { timestamp: -1 }} , function (err, task) {
+exports.get_pmc_users_by_status = function (req, res) { 
+  User.find({ role: { $all: ["PMCUser"] } , status: { $all: [req.params.status] }} , null, { sort: { timestamp: -1 } }, function (err, task) {
     if (err)
       res.send(err);
     res.json(task);
-  });
+  }).populate([{ path: 'community_ID', model: Community }]);
 };
 
 
@@ -55,7 +55,9 @@ exports.create_a_user = function (req, res) {
             if (err)
               res.send(err);
             res.json(task);
-          });//.populate([{ path: 'community_ID', model: Community }]);
+          });
+          //Cannot read property 'populate' of undefined
+          //}).populate([{ path: 'community_ID', model: Community }]);
         } else {
           res.json({ _id:task._id ,duplicateUsername: true });
         }
@@ -69,7 +71,7 @@ exports.login_a_user = function (req, res) {
   if(req.query.password.indexOf(' ')>=0){
     req.query.password = req.query.password.replace(' ','+');
   }
-  //console.log(req.query.password);
+  //Amin : imp . { username: this.user.phone,password: this.user.pwd } input parameter look like this.
   User.findOne({ username: req.query.username, password: req.query.password }, function (err, task) {
     if (err)
       res.send(err);

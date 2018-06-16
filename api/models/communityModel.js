@@ -22,6 +22,18 @@ var CommunitySchema = new Schema({
   PMC:{
     type: String
   },
+  /*pmc define price and priceUnit*/
+  priceUnit: {
+    type: [{
+      type: String,
+      enum: ['小时', '天', '月']
+    }],
+    default: ['天']
+  },
+  price: {
+    type: Number,
+    required: 'Kindly enter the price'
+  },
   mapid: {
     type: String 
   } ,

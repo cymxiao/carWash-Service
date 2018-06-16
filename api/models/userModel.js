@@ -17,10 +17,14 @@ var UserSchema = new Schema({
     type: Schema.Types.ObjectId,  
     ref: 'communities' 
   },
+  account_ID: {
+    type: Schema.Types.ObjectId,  
+    ref: 'accounts' 
+  },
   role: {
     type: [{
       type: String,
-      enum: ['PMCUser','proprietor', 'externalUser']
+      enum: ['PMCUser','superAdministator', 'externalUser']
     }],
     default:['externalUser']
   },
@@ -33,6 +37,10 @@ var UserSchema = new Schema({
   name: {
     type: String
   },
+  carPlate: {
+    type: String
+  },
+  lastLoginDate: { type: Date },
   timestamp: { type: Date, default: Date.now },
   status: {
     type: [{
