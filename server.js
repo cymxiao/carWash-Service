@@ -3,9 +3,8 @@ var express = require('express'),
 
 //Amin:IMP.  Each time add a new route, please check server.js
 
-  port = process.env.PORT || 3000,
+  port = process.env.PORT || 3001,
   mongoose = require('mongoose'),
-  //Task = require('./api/models/todoListModel'), //created model loading here
   User = require('./api/models/userModel'), //created user loading here
   Country = require('./api/models/countryModel'),
   City = require('./api/models/cityModel'),
@@ -14,12 +13,11 @@ var express = require('express'),
   LeisurePark = require('./api/models/leisureParkModel'),
   Role = require('./api/models/roleModel'),
   Account = require('./api/models/accountModel'),
-  xmMember = require('./api/models/xjMemberModel'),
   bodyParser = require('body-parser');
 
 // mongoose instance connection url connection
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost:27017/parking');
+mongoose.connect('mongodb://localhost:27017/carwash');
 
  
 //The bodyParser object exposes various factories to create middlewares. All middlewares 
@@ -52,7 +50,6 @@ var leisurePark = require('./api/routes/leisureParkRoutes');
 var role = require('./api/routes/roleRoutes');
 var account = require('./api/routes/accountRoutes'); 
 var sms = require('./api/routes/smsRoutes');  
-var member = require('./api/routes/xjMemberRoutes'); 
 
 users(app);
 maps(app);
@@ -64,7 +61,6 @@ leisurePark(app);
 role(app);
 account(app);
 sms(app);
-member(app);
  
 app.listen(port); 
 app.use(bodyParser.json());
