@@ -80,6 +80,14 @@ exports.login_a_user = function (req, res) {
 };
 
 
+exports.get_users = function (req, res) {
+  User.find ({ }, function (err, task) {
+    if (err)
+      res.send(err);
+    res.json(task);
+  });
+};
+
 exports.get_user_by_username = function (req, res) {
   User.findOne({ username: req.params.username }, function (err, task) {
     if (err)

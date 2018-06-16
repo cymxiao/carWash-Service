@@ -24,9 +24,9 @@ var UserSchema = new Schema({
   role: {
     type: [{
       type: String,
-      enum: ['PMCUser','superAdministator', 'externalUser']
+      enum: ['carowner','superAdministator', 'washman']
     }],
-    default:['externalUser']
+    default:['carowner']
   },
   phoneNo: {
     type: String 

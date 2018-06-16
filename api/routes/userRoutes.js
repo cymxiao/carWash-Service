@@ -7,6 +7,7 @@ module.exports = function(app) {
     .get(user.get_pmc_users_by_status);
  
   app.route('/users') 
+    .get(user.get_users)
     .post(user.create_a_user);//, jsonParser);
 
   app.route('/userlogin')
